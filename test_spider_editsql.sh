@@ -1,20 +1,25 @@
 #! /bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # nic add
+echo "$DIR"
+
 # 1. preprocess dataset by the following. It will produce data/spider_data_removefrom/
 
-# python3 preprocess.py --dataset=spider --remove_from
+python3 "$DIR/preprocess.py" --dataset=spider --remove_from
 
 # 2. train and evaluate.
 #    the result (models, logs, prediction outputs) are saved in $LOGDIR
 
-GLOVE_PATH="/home/lily/rz268/dialog2sql/word_emb/glove.840B.300d.txt" # you need to change this
-LOGDIR="logs/logs_spider_editsql"
+# GLOVE_PATH="/home/lily/rz268/dialog2sql/word_emb/glove.840B.300d.txt" # you need to change this
+GLOVE_PATH="$DIR/glove/glove.840B.300d.txt" 
+LOGDIR="$DIR/logs/logs_spider_editsql"
 
-CUDA_VISIBLE_DEVICES=0 python3 run.py --raw_train_filename="data/spider_data_removefrom/train.pkl" \
-          --raw_validation_filename="data/spider_data_removefrom/dev.pkl" \
-          --database_schema_filename="data/spider_data_removefrom/tables.json" \
-          --embedding_filename=$GLOVE_PATH \
-          --data_directory="processed_data_spider_removefrom" \
+
+CUDA_VISIBLE_DEVICES=0 python3 "$DIR/run.py" --raw_train_filename="$DIR/data/spider_data_removefrom/train.pkl" \
+          --raw_validation_filename="$DIR/data/spider_data_removefrom/dev.pkl" \
+          --database_schema_filename="$DIR/data/spider_data_removefrom/tables.json" \
+          --embedding_filename="$GLOVE_PATH" \
+          --data_directory="$DIR/processed_data_spider_removefrom" \
           --input_key="utterance" \
           --use_schema_encoder=1 \
           --use_schema_attention=1 \
@@ -27,7 +32,7 @@ CUDA_VISIBLE_DEVICES=0 python3 run.py --raw_train_filename="data/spider_data_rem
           --interaction_level=1 \
           --reweight_batch=1 \
           --freeze=1 \
-          --logdir=$LOGDIR \
+          --logdir="$LOGDIR" \
           --evaluate=1 \
           --evaluate_split="valid" \
           --use_predicted_queries=1 \
@@ -35,4 +40,4 @@ CUDA_VISIBLE_DEVICES=0 python3 run.py --raw_train_filename="data/spider_data_rem
 
 # 3. get evaluation result
 
-python3 postprocess_eval.py --dataset=spider --split=dev --pred_file $LOGDIR/valid_use_predicted_queries_predictions.json --remove_from
+python3 "$DIR/postprocess_eval.py" --dataset=spider --split=dev --pred_file "$LOGDIR/valid_use_predicted_queries_predictions.json" --remove_from

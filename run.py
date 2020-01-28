@@ -1,5 +1,8 @@
 """Contains a main function for training and/or evaluating a model."""
 
+import nltk
+nltk.download('punkt')
+
 import os
 import sys
 
