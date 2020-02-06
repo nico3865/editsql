@@ -8,3 +8,4 @@ README.md
 LICENSE
 .vscode
 venv_editsql
+glove/*

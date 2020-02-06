@@ -38,9 +38,21 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.0"
 # Nico's adds:
 RUN mkdir -p /usr/src/editsql
 WORKDIR /usr/src/editsql
-COPY . .
-# VOLUME . .
+
+RUN apt-get update && apt-get install -y \
+    python3-pip
+RUN apt install -y python-pip
+
+#RUN set -xe \
+#    && apt-get update \
+#    && apt-get install python3-pip
+RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
+
 EXPOSE 3000
-CMD ["bash", "run_spider_editsql.sh"]
+COPY . .
+RUN pip install -r requirements.txt
+#VOLUME ./glove ./glove
+CMD ["bash", "test_spider_editsql.sh"]
 
 
