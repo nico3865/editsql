@@ -1,3 +1,39 @@
+# Extending EditSQL 
+
+In this repository, I am extending the EditSQL codebase to do:
+1) **interactive text-to-SQL**, using a command-line utility, or a StreamLit app (if time allows)
+2) **template-based back-translation English feedback**, based on the baseline from "*CoSQL: A Conversational Text-to-SQL Challenge Towards Cross-Domain Natural Language Interfaces to Databases*" https://github.com/brucepang/template-based-sql2response-model
+3) **template-based data augmentation**, used in "*SyntaxSQLNet: Syntax Tree Networks for Complex and Cross-Domain Text-to-SQL Task*" https://github.com/taoyds/syntaxSQL
+
+# Main idea:
+
+- Conversational text-to-SQL (show pictures of conversations)
+
+- Model architecture: (redo their diagram to make it clearer, and add comments for each embedding space they use / combine)
+
+- Use of English feedback (CoSQL's Response Generation sub-challenge)
+
+- Data Augmentation
+
+# Install Instructions:
+
+0) install dependencies for EDitSQL (re-explain instructions below but more clearly)
+
+1) install dependencies for the **template-based back-translation English feedback**
+
+1) running the **interactive text-to-SQL** shell script
+
+2) running the data augmentation scripts (install dependencies for SyntaxSQL)
+
+3) re-training with more augmented data (re-explain instructions below but more clearly)
+
+
+
+
+
+
+
+
 # EditSQL for [Spider](https://yale-lily.github.io/spider), [SParC](https://yale-lily.github.io/sparc), [CoSQL](https://yale-lily.github.io/cosql)
 
 This is a pytorch implementation of the CD-Seq2Seq baseline and the EditSQL model in the following papers
