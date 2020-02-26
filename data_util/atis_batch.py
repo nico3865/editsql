@@ -190,6 +190,12 @@ class InteractionItem():
 
     def __str__(self):
         s = "Utterances, gold queries, and predictions:\n"
+        print("---------")
+        print("self.processed_utterances: ")
+        print(self.processed_utterances)
+        print("self.interaction.utterances: ")
+        print(self.interaction.utterances)
+        print("---------")
         for i, utterance in enumerate(self.interaction.utterances):
             s += " ".join(utterance.input_seq_to_use) + "\n"
             pred_utterance = self.processed_utterances[i]

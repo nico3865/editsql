@@ -23,6 +23,7 @@ CUDA_VISIBLE_DEVICES=0 python3 "$DIR/run.py" --raw_train_filename="$DIR/data/spa
           --input_key="utterance" \
           --state_positional_embeddings=1 \
           --discourse_level_lstm=1 \
+          --use_utterance_attention=1 \
           --use_previous_query=1 \
           --use_query_attention=1 \
           --use_copy_switch=1 \
@@ -37,13 +38,22 @@ CUDA_VISIBLE_DEVICES=0 python3 "$DIR/run.py" --raw_train_filename="$DIR/data/spa
           --interaction_level=1 \
           --reweight_batch=1 \
           --freeze=1 \
-          --logdir="$LOGDIR" \
           --evaluate=1 \
+          --logdir="$LOGDIR" \
           --evaluate_split="valid" \
-          # --evaluate_split="test" \
           --use_predicted_queries=1 \
-          --save_file="$LOGDIR/save_31_sparc_editsql"
+          --save_file="$LOGDIR/save_8"
 
 # 3. get evaluation result
 
 python3 "$DIR/postprocess_eval.py" --dataset=sparc --split=dev --pred_file "$LOGDIR/valid_use_predicted_queries_predictions.json" --remove_from
+
+
+
+#          --interaction_level="False" \
+          # --evaluate_split="test" \ # nic
+          # --interaction_level=1 \
+#          --data_directory="$DIR/processed_data_sparc_removefrom_test" \               #           --data_directory="$DIR/processed_data_sparc_removefrom" \
+
+#         --save_file="$LOGDIR/save_31_sparc_editsql"
+#         --evaluate_split="test" \
